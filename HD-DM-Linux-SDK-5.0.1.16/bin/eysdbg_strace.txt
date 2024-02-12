@@ -1,0 +1,9 @@
+strace: Process 257657 attached
+15:04:24 rt_sigaction(SIGRTMIN, {sa_handler=0x7ff0a5d2ebf0, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x7ff0a5d3c420}, NULL, 8) = 0
+15:04:24 rt_sigaction(SIGRT_1, {sa_handler=0x7ff0a5d2ec90, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART|SA_SIGINFO, sa_restorer=0x7ff0a5d3c420}, NULL, 8) = 0
+15:04:24 rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+15:04:24 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=257669, si_uid=0, si_status=0, si_utime=0, si_stime=0} ---
+15:04:24 rt_sigaction(SIGINT, {sa_handler=0x7ff0a72ede10, sa_mask=[INT], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7ff0a582b090}, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=0}, 8) = 0
+15:04:25 rt_sigprocmask(SIG_BLOCK, ~[SYS RTMIN RT_1], [], 8) = 0
+15:04:25 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+15:07:55 +++ exited with 0 +++

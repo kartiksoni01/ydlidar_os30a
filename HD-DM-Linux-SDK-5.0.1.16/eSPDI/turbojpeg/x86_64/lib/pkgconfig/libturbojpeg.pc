@@ -1,0 +1,10 @@
+prefix=/opt/libjpeg-turbo
+exec_prefix=/opt/libjpeg-turbo
+libdir=/home/eys3d/Workspace/EtronSDK_Linux2_Debug/EtronSDK_Linux2/eSPDI/turbojpeg/x86_64/lib
+includedir=/home/eys3d/Workspace/EtronSDK_Linux2_Debug/EtronSDK_Linux2/eSPDI/turbojpeg/x86_64/include
+
+Name: libturbojpeg
+Description: A SIMD-accelerated JPEG codec that provides the TurboJPEG API
+Version: 2.0.4
+Libs: -L${libdir} -lturbojpeg
+Cflags: -I${includedir}

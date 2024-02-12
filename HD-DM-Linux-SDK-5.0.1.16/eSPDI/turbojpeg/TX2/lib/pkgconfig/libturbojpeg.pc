@@ -1,0 +1,10 @@
+prefix=/home/nvidia/workspace/3rdparty_source_code/libjpeg-turbo-2.0.4/lib_release/TX2
+exec_prefix=/home/nvidia/workspace/3rdparty_source_code/libjpeg-turbo-2.0.4/lib_release/TX2
+libdir=/home/nvidia/workspace/3rdparty_source_code/libjpeg-turbo-2.0.4/lib_release/TX2/lib
+includedir=/home/nvidia/workspace/3rdparty_source_code/libjpeg-turbo-2.0.4/lib_release/TX2/include
+
+Name: libturbojpeg
+Description: A SIMD-accelerated JPEG codec that provides the TurboJPEG API
+Version: 2.0.4
+Libs: -L${libdir} -lturbojpeg
+Cflags: -I${includedir}

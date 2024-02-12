@@ -1,0 +1,10 @@
+prefix=/home/ethan/ti-processor-sdk-linux-dra7xx-evm-05.03.00.07/targetNFS/home/root/workspace/3tdparty-code/libjpeg-turbo-2.0.4/lib_release/armhf_ti_32
+exec_prefix=/home/ethan/ti-processor-sdk-linux-dra7xx-evm-05.03.00.07/targetNFS/home/root/workspace/3tdparty-code/libjpeg-turbo-2.0.4/lib_release/armhf_ti_32
+libdir=/home/ethan/ti-processor-sdk-linux-dra7xx-evm-05.03.00.07/targetNFS/home/root/workspace/3tdparty-code/libjpeg-turbo-2.0.4/lib_release/armhf_ti_32/lib
+includedir=/home/ethan/ti-processor-sdk-linux-dra7xx-evm-05.03.00.07/targetNFS/home/root/workspace/3tdparty-code/libjpeg-turbo-2.0.4/lib_release/armhf_ti_32/include
+
+Name: libturbojpeg
+Description: A SIMD-accelerated JPEG codec that provides the TurboJPEG API
+Version: 2.0.4
+Libs: -L${libdir} -lturbojpeg
+Cflags: -I${includedir}

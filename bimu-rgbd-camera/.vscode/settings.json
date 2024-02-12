@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "image": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "containers": "cpp",
+        "imageutils": "cpp"
+    }
+}

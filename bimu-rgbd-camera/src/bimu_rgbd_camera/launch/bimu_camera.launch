@@ -1,0 +1,47 @@
+<launch>
+   
+    <!-- <node pkg="rviz" name="rviz" type="rviz">
+
+    </node> -->
+
+    <node pkg="bimu_rgbd_camera" name="bimu_rgbd_camera" type="bimu_rgbd_camera" output="screen">
+
+      <param name="file_path" type="string" value="$(find bimu_rgbd_camera)" />
+      
+      <param name="BlockingMode" type="string" value="yes"/>
+
+      <param name="colorFormatNum" type="int" value="1"/>
+      <param name="colorWidthNum"  type="int" value="1280"/>
+      <param name="colorHeightNum"  type="int" value="920"/>
+      <param name="colorActualFpsNum" type="int" value="30"/>
+
+      <param name="depthWidthNum" type="int" value="640"/>
+      <param name="depthHeightNum"  type="int" value="460"/>
+      <param name="depthActualFpsNum"  type="int" value="30"/>
+      <param name="depthDataTypeNum" type="int" value="2"/>
+      <param name="buffSizeNum" type="int" value="32"/>
+
+      <param name="colorImg" type="bool" value="1"/>
+      <param name="depthImg" type="bool" value="1"/>
+      <param name="pointCloudImg" type="bool" value="1"/>
+      <param name="camera_info" type="bool" value="1"/>
+
+      <param name="AE" type="int" value="3"/>
+
+      <param name="irMaxValue" type="int" value="15"/>
+      <param name="currentIRValue" type="int" value="9"/>
+
+      <param name="frameSelection" type="int" value="1"/>
+
+      <param name="devInfoPID" type="int" value="371"/>
+      <param name="devInfoVID" type="int" value="13368"/>
+      <param name="devIndex" type="int" value="0"/>
+
+      <param name="pointCloudMaxFar" type="int" value="2000"/>
+
+    </node>
+  
+</launch>
+
+
+
