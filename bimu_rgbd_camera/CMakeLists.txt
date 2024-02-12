@@ -20,7 +20,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
-  ${PROJECT_SOURCE_DIR}/../../../HD-DM-Linux-SDK-5.0.1.16/eSPDI
+  ${PROJECT_SOURCE_DIR}/../HD-DM-Linux-SDK-5.0.1.16/eSPDI
 
 )
 
@@ -34,8 +34,8 @@ add_executable(bimu_rgbd_camera
 
 if(x86_flag)
   target_link_libraries(bimu_rgbd_camera
-    ${PROJECT_SOURCE_DIR}/../../../HD-DM-Linux-SDK-5.0.1.16/eSPDI/libeSPDI_X86_64.so.5.0.1.16
-    ${PROJECT_SOURCE_DIR}/../../../HD-DM-Linux-SDK-5.0.1.16/eSPDI/libeSPDI_X86_64.so
+    ${PROJECT_SOURCE_DIR}/../HD-DM-Linux-SDK-5.0.1.16/eSPDI/libeSPDI_X86_64.so.5.0.1.16
+    ${PROJECT_SOURCE_DIR}/../HD-DM-Linux-SDK-5.0.1.16/eSPDI/libeSPDI_X86_64.so
     
     ${catkin_LIBRARIES}
     -lrt -lm -ldl -lpthread -ludev
@@ -43,8 +43,8 @@ if(x86_flag)
   )
 else()
   target_link_libraries(bimu_rgbd_camera
-    ${PROJECT_SOURCE_DIR}/../../../HD-DM-Linux-SDK-5.0.1.16/eSPDI/libeSPDI_NVIDIA_64.so.5.0.1.12
-    ${PROJECT_SOURCE_DIR}/../../../HD-DM-Linux-SDK-5.0.1.16/eSPDI/libeSPDI_NVIDIA_64.so
+    ${PROJECT_SOURCE_DIR}/../HD-DM-Linux-SDK-5.0.1.16/eSPDI/libeSPDI_NVIDIA_64.so.5.0.1.12
+    ${PROJECT_SOURCE_DIR}/../HD-DM-Linux-SDK-5.0.1.16/eSPDI/libeSPDI_NVIDIA_64.so
     
     ${catkin_LIBRARIES}
     -lrt -lm -ldl -lpthread -ludev
