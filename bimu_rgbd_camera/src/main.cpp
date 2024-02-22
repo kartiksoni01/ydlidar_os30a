@@ -2613,7 +2613,7 @@ int getPointCloud(void *pHandleEYSD, DEVSELINFO *pDevSelInfo, unsigned char *Img
 
 
             cloudpoint_image.header.stamp = ros::Time::now();
-            cloudpoint_image.header.frame_id = "camera_link";
+            cloudpoint_image.header.frame_id = "camera_depth_link";
             cloudpoint_image.points.resize(cloud.size());
             cloudpoint_image.channels.resize(1);
             cloudpoint_image.channels[0].name = "intensity";
