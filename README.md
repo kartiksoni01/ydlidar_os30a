@@ -64,6 +64,5 @@ roslaunch bimu_rgbd_camera bimu_camera.launch
 
 Ensure that ROS is properly configured and the necessary dependencies are installed. Adjust the configuration parameters as needed in the launch file (`bimu_camera.launch`) to suit your application requirements.
 
-For further assistance or inquiries, please refer to the official Ydlidar documentation or contact support.
 
 ---
