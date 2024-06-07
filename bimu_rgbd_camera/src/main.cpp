@@ -17,6 +17,9 @@
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/PointCloud.h>
 #include <sensor_msgs/CameraInfo.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <sensor_msgs/point_cloud2_iterator.h>
+#include <pcl_conversions/pcl_conversions.h>
 
 #include "PlyWriter.h"
 #include "eSPDI.h"
@@ -338,7 +341,7 @@ int main(int argc, char **argv)
 
     rgb_img_pub = bimu_camera.advertise<sensor_msgs::Image>(image_raw.c_str(), 2);
     depth_img_pub = bimu_camera.advertise<sensor_msgs::Image>(image_rect_raw.c_str(), 2);
-    cloudpoint_img_pub = bimu_camera.advertise<sensor_msgs::PointCloud>(point_cloud.c_str(), 2);
+    cloudpoint_img_pub = bimu_camera.advertise<sensor_msgs::PointCloud2>(point_cloud.c_str(), 2);
     camera_info_pub = bimu_camera.advertise<sensor_msgs::CameraInfo>(camera_info.c_str(), 2);
 
     devive_tmp = open_device();
@@ -2555,7 +2558,6 @@ static int getPointCloudInfo(void *pHandleEYSD, DEVSELINFO *pDevSelInfo, PointCl
     }
     return APC_OK;
 }
-
 int getPointCloud(void *pHandleEYSD, DEVSELINFO *pDevSelInfo, unsigned char *ImgColor, int CW, int CH,
                   unsigned char *ImgDepth, int DW, int DH, int depthDataType,
                   unsigned char *pPointCloudRGB,
@@ -2580,7 +2582,6 @@ int getPointCloud(void *pHandleEYSD, DEVSELINFO *pDevSelInfo, unsigned char *Img
         ret = getPointCloudInfo(pHandleEYSD, pDevSelInfo, pPointCloudInfo/*&pointCloudInfo*/, depthDataType, DH);
     }
 
-
     if (ret == APC_OK)
     {
         ret = APC_GetPointCloud(pHandleEYSD, pDevSelInfo, ImgColor, CW, CH, ImgDepth, DW, DH,
@@ -2588,44 +2589,49 @@ int getPointCloud(void *pHandleEYSD, DEVSELINFO *pDevSelInfo, unsigned char *Img
         if (ret == APC_OK)
         {
             snprintf(fname, sizeof(fname), SAVE_FILE_PATH "cloud_%d_%s.ply", yuv_index++, DateTime);
-            while (i < (DW * DH * 3))
-            {
 
-                if (isnan(pPointCloudXYZ[i]) || isnan(pPointCloudXYZ[i + 1]) || isnan(pPointCloudXYZ[i + 2]))
+            sensor_msgs::PointCloud2 cloudpoint_image;
+            cloudpoint_image.header.stamp = ros::Time::now();
+            cloudpoint_image.header.frame_id = "camera_depth_link";
+            cloudpoint_image.height = 1;
+            cloudpoint_image.width = DW * DH;
+
+            sensor_msgs::PointCloud2Modifier modifier(cloudpoint_image);
+            modifier.setPointCloud2FieldsByString(2, "xyz", "rgb");
+            modifier.resize(DW * DH);
+
+            sensor_msgs::PointCloud2Iterator<float> iter_x(cloudpoint_image, "x");
+            sensor_msgs::PointCloud2Iterator<float> iter_y(cloudpoint_image, "y");
+            sensor_msgs::PointCloud2Iterator<float> iter_z(cloudpoint_image, "z");
+            sensor_msgs::PointCloud2Iterator<uint8_t> iter_r(cloudpoint_image, "r");
+            sensor_msgs::PointCloud2Iterator<uint8_t> iter_g(cloudpoint_image, "g");
+            sensor_msgs::PointCloud2Iterator<uint8_t> iter_b(cloudpoint_image, "b");
+
+            for (i = 0; i < DW * DH * 3; i += 3)
+            {
+                if (!isnan(pPointCloudXYZ[i]) && !isnan(pPointCloudXYZ[i + 1]) && !isnan(pPointCloudXYZ[i + 2]))
                 {
-                    // Do nothing!!
+                    *iter_x = pPointCloudXYZ[i] * 0.001;
+                    *iter_y = pPointCloudXYZ[i + 1] * 0.001;
+                    *iter_z = pPointCloudXYZ[i + 2] * 0.001;
+                    *iter_r = pPointCloudRGB[i];
+                    *iter_g = pPointCloudRGB[i + 1];
+                    *iter_b = pPointCloudRGB[i + 2];
                 }
                 else
                 {
-                    cloudpoint.r = pPointCloudRGB[i];
-                    cloudpoint.g = pPointCloudRGB[i + 1];
-                    cloudpoint.b = pPointCloudRGB[i + 2];
-                    cloudpoint.x = pPointCloudXYZ[i];
-                    cloudpoint.y = pPointCloudXYZ[i + 1];
-                    cloudpoint.z = pPointCloudXYZ[i + 2];
-                    cloud.push_back(cloudpoint);
+                    *iter_x = *iter_y = *iter_z = std::numeric_limits<float>::quiet_NaN();
+                    *iter_r = *iter_g = *iter_b = 0;
                 }
-                i += 3;
-                if (i == (DW * DH * 3))
-                    break;
+
+                ++iter_x;
+                ++iter_y;
+                ++iter_z;
+                ++iter_r;
+                ++iter_g;
+                ++iter_b;
             }
-            //PlyWriter::writePly(cloud, fname);
 
-
-            cloudpoint_image.header.stamp = ros::Time::now();
-            cloudpoint_image.header.frame_id = "camera_depth_link";
-            cloudpoint_image.points.resize(cloud.size());
-            cloudpoint_image.channels.resize(1);
-            cloudpoint_image.channels[0].name = "intensity";
-            cloudpoint_image.channels[0].values.resize(cloud.size());
-
-
-            for(int i=0; i<cloud.size(); i++){
-                cloudpoint_image.points[i].x = cloud[i].x*0.001;
-                cloudpoint_image.points[i].y = cloud[i].y*0.001;
-                cloudpoint_image.points[i].z = cloud[i].z*0.001;
-                cloudpoint_image.channels[0].values[i] = 0;
-            }
             cloudpoint_img_pub.publish(cloudpoint_image);
         }
     }
