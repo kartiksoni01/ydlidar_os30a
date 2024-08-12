@@ -1,0 +1,12 @@
+# config/common_yaml
+# Common parameters to eYs3d cameras
+#
+---
+
+/**:
+    ros__parameters:
+        qos_history:        1           # '1': KEEP_LAST - '2': KEEP_ALL
+        qos_depth:          10          # Queue size if using KEEP_LAST
+        qos_reliability:    1           # '1': RELIABLE - '2': BEST_EFFORT
+        qos_durability:     2           # '1': TRANSIENT_LOCAL - '2': VOLATILE
+

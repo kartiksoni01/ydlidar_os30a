@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ydlidar-os30a</name>
+  <version>0.0.1</version>
+  <description>TODO: Package description</description>
+  <maintainer email="ethan.wu@eys3d.com">eys3d</maintainer>
+  <maintainer email="kartiksoni010@gmail.com">kartik</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+    <build_depend>rclcpp</build_depend>
+    <build_depend>rclcpp_components</build_depend>
+    <build_depend>rcutils</build_depend>
+    <build_depend>std_msgs</build_depend>
+    <build_depend>sensor_msgs</build_depend>
+    <build_depend>tf2</build_depend>
+    <build_depend>tf2_ros</build_depend>
+    <build_depend>image_transport</build_depend>
+    <build_depend>cv_bridge</build_depend>
+
+    <exec_depend>launch_ros</exec_depend>
+    <exec_depend>rclcpp</exec_depend>
+    <exec_depend>rclcpp_components</exec_depend>
+    <exec_depend>rcutils</exec_depend>
+    <exec_depend>std_msgs</exec_depend>
+    <exec_depend>sensor_msgs</exec_depend>
+    <exec_depend>tf2</exec_depend>
+    <exec_depend>tf2_ros</exec_depend>
+    <exec_depend>image_transport</exec_depend>
+    <exec_depend>cv_bridge</exec_depend>
+
+    <test_depend>ament_cmake_pytest</test_depend>
+    <test_depend>ament_lint_auto</test_depend>
+    <test_depend>ament_lint_common</test_depend>
+    <test_depend>launch</test_depend>
+    <test_depend>launch_testing</test_depend>
+    <test_depend>launch_testing_ros</test_depend>
+    <test_depend>launch_testing_ament_cmake</test_depend>
+    <test_depend>rmw_implementation_cmake</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

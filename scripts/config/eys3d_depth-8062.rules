@@ -1,0 +1,1 @@
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1e4e", ATTRS{idProduct}=="0163", MODE:="0666", OWNER:="root", SYMLINK+="eys3d_depth-8062"
