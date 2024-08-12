@@ -12,7 +12,7 @@ from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
-    rviz_config_dir = os.path.join(get_package_share_directory('dm_preview'), 'rviz', 'apc.rviz')
+    rviz_config_dir = os.path.join(get_package_share_directory('ydlidar_os30a'), 'rviz', 'apc.rviz')
     base_frame = 'dm_base_frame'
     camera_model_1 = ''
     camera_model_2 = ''
@@ -32,16 +32,16 @@ def generate_launch_description():
         camera_model_2 = 'dm8062'
         dev_2_serial_number = "80625APA00022"
     else :
-        camera_model_1 = 'dm_preview'
+        camera_model_1 = 'ydlidar_os30a'
     ####################################################################
     # eYs3D Configurations to be loaded by APC Node
 
-    qos_config_dir = os.path.join(get_package_share_directory('dm_preview'), 'config', 'common.yaml')
+    qos_config_dir = os.path.join(get_package_share_directory('ydlidar_os30a'), 'config', 'common.yaml')
 
     ld = LaunchDescription()
 
     DM_device_node = Node(
-        package="dm_preview",
+        package="ydlidar_os30a",
         executable="apc_camera_node",
         name= camera_model_1,
         output="screen",
@@ -133,7 +133,7 @@ def generate_launch_description():
     )
 
     DM_device_1_node = Node(
-        package="dm_preview",
+        package="ydlidar_os30a",
         executable="apc_camera_node",
         name=camera_model_2,
         output="screen",
