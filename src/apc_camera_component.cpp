@@ -49,7 +49,7 @@ ApcCamera::ApcCamera(const rclcpp::NodeOptions& options)
     //-Calibration info
 
     // Dynamic parameters callback
-    set_on_parameters_set_callback(std::bind(&ApcCamera::paramChange_callback, this, _1));
+    add_on_set_parameters_callback(std::bind(&ApcCamera::paramChange_callback, this, _1));
 }
 
 ApcCamera::~ApcCamera() {

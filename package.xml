@@ -2,10 +2,11 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>ydlidar_os30a</name>
-  <version>0.0.1</version>
-  <description>TODO: Package description</description>
+  <version>1.0.9</version>
+  <description>Driver for ydlidar os30a for ROS 2 Humble</description>
   <maintainer email="ethan.wu@eys3d.com">eys3d</maintainer>
   <maintainer email="kartiksoni010@gmail.com">kartik</maintainer>
+  <maintainer email="miguel_gonzalezr@ieee.org">Miguel Angel Gonzalez Rodriguez</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

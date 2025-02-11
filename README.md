@@ -22,124 +22,38 @@ API reference and the guide documentations.
 
 ----------
 
-## Installation ROS2 FOXY Instructions
+## Installation of the package for ROS2 HUMBLE Instructions
 
-The following instructions are written for ROS Foxy on Ubuntu 20.04
+To build the packages, follow these steps:
 
- - Set locale  
-   Make sure you have a locale which supports UTF-8.  
+```shell
+# Create a symlink for libdc1394.so, if you dont have this file, install opencv
+sudo ln -sf /lib/x86_64-linux-gnu/libdc1394.so /usr/lib/libdc1394.so.22
 
-    ```
-    locale  # check for UTF-8  
-    
-    sudo apt update && sudo apt install locales  
-    sudo locale-gen en_US en_US.UTF-8  
-    sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8  
-    export LANG=en_US.UTF-8  
-    
-    locale  # verify settings
-    ```   
-  - Setup Sources  
-    You will need to add the ROS 2 apt repositories to your system. To do so, first authorize our GPG key with apt like this: 
-    ```
-    sudo apt update && sudo apt install curl gnupg2 lsb-release   
-    sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg   
-    ```   
-    And then add the repository to your sources list:  
-    ``` 
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-    ```   
-  - Install ROS 2 packages  
-    Update your apt repository caches after setting up the repositories.  
-    ```   
-    sudo apt update  
-    ```   
-    Desktop Install (Recommended): ROS, RViz, demos, tutorials.
-    ```     
-    sudo apt install ros-foxy-desktop  
-    ```   
-  - Environment setup  
-    Set up your environment by sourcing the following file.  
-    ```  
-    source /opt/ros/foxy/setup.bash  
-    ```   
-    Add sourcing to your shell startup script.  
-    ```  
-    echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc  
-    ```   
-  - Check environment variables  
-    Sourcing ROS 2 setup files will set several environment variables necessary for operating ROS 2.   
-    If you ever have problems finding or using your ROS 2 packages, make sure that your environment is properly setup using the following command:  
-    ```   
-    printenv | grep -i ROS  
-    ```  
-    Check that variables like ROS_DISTRO and ROS_VERSION are set. For example, if you’re using Foxy, you would see:  
-    ```   
-    ROS_VERSION=2
-    ROS_PYTHON_VERSION=3
-    ROS_DISTRO=foxy
-    ```  
-  - Try some examples  
-    If you installed ros-foxy-desktop above you can try some examples.  
-    In one terminal, source the setup file and then run a C++ talker:  
-    ```  
-    source /opt/ros/foxy/setup.bash
-    ros2 run demo_nodes_cpp talker
-    ```  
-    In another terminal source the setup file and then run a Python listener:  
-    ```  
-    source /opt/ros/foxy/setup.bash
-    ros2 run demo_nodes_py listener
-    ```  
-    You should see the talker saying that it’s Publishing messages and the listener saying I heard those messages.  
-    This verifies both the C++ and Python APIs are working properly. Hooray!  
-    
-    ![Screenshot from 2021-09-08 13-47-58](https://user-images.githubusercontent.com/88474678/132453477-1ab663ca-da07-4d1b-b17f-baa201e88b34.png)
+# Change headers calls in tf2_geometry_msgs cpp file
+sudo nano /opt/ros/humble/include/tf2_geometry_msgs/tf2_geometry_msgs/tf2_geometry_msgs.hpp
+# and change ".hpp" to ".h" in:
+#include "tf2/convert.h"
+#include "tf2/LinearMath/Quaternion.hpp"
+#include "tf2/LinearMath/Transform.hpp"
+#include "tf2/LinearMath/Vector3.hpp"
 
-----------
-  
-## Build eYs3D ROS2    
- - Installing and initializing rosdep  
-   ```  
-   sudo apt update
-   sudo apt install -y python3-rosdep
-   sudo rosdep init
-   rosdep update
-   ```  
- - Installing colcon tool  
-   ```
-   sudo apt install python3-colcon-common-extensions  
-   ```  
- - Resolve dependencies  
-   Before building the workspace, you need to resolve package dependencies. You may have all the dependencies already, 
-   but best practice is to check for dependencies every time you clone. You wouldn’t want a build to fail after a long wait because of missing dependencies.
+# Go to your workspace/src folder
+cd ~/ros2_ws/src
 
-   From the root of your workspace (dev_ws), run the following command:
-   ```
-   rosdep install -i --from-path src --rosdistro foxy -y
-   ``` 
-   If you already have all your dependencies, the console will return:  
-   ```
-   #All required rosdeps installed successfully  
-   ``` 
- - Build the workspace with colcon  
-   From the root of your workspace (dev_ws), you can now build your packages using the command:
-   ```
-   colcon build --symlink-install
-   ``` 
-   The console will return the following message:  
-   ```
-   Starting >>> dm_preview
-   Finished <<< dm_preview [6.17s]
+# Clone the repository
+TODO: git clone [add repo link]
 
-   Summary: 1 package finished [6.28s]
-   ``` 
-   Once the build is finished, enter ls in the workspace root (~/dev_ws) and you will see that colcon has created new directories:
-   ```
-   build  install  log  src
-   ``` 
-   The install directory is where your workspace’s setup files are, which you can use to source your overlay.
-----------
+# Return to workspace folder
+cd ~/ros2_ws
+
+# Compile the package
+colcon build --packages-select ydlidar_os30a
+
+# Source your workspace
+source ~/ros2_ws/install/setup.bash
+
+```
 
 ## Usage Instructions
 Start the eYs3D depth camera node, this will stream all camera sensors and publish on the appropriate ROS topics.  
